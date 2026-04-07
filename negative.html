@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Share Your Feedback</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:#04060f;
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;
+  padding:40px 20px;
+  position:relative;
+}
+.bg-glow{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.g1{width:500px;height:500px;background:rgba(255,107,53,.06);top:-100px;right:-100px;animation:gf 7s ease-in-out infinite}
+.g2{width:400px;height:400px;background:rgba(79,142,247,.05);bottom:-80px;left:-80px;animation:gf 9s ease-in-out infinite reverse}
+@keyframes gf{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+
+.card{
+  background:rgba(8,13,30,.95);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:28px;
+  padding:52px 44px;
+  max-width:460px;width:100%;
+  text-align:center;
+  position:relative;z-index:1;
+  animation:cardIn .7s cubic-bezier(.16,1,.3,1) both;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:28px 28px 0 0;
+  background:linear-gradient(90deg,transparent,#ff6b35,#a78bfa,transparent);
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(40px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+/* SUCCESS STATE */
+.success{display:none;text-align:center;padding:20px 0}
+.success .tick{
+  width:80px;height:80px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(31,207,138,.15),rgba(31,207,138,.05));
+  border:1px solid rgba(31,207,138,.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;margin:0 auto 24px;
+  animation:tickPop .6s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes tickPop{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+.success h2{font-family:'Sora',sans-serif;font-size:22px;font-weight:800;margin-bottom:12px}
+.success p{font-size:14px;color:rgba(255,255,255,.5);line-height:1.7}
+
+.logo-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:32px}
+.lbox{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#4f8ef7,#a78bfa);display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:#fff}
+.lname{font-family:'Sora',sans-serif;font-size:13px;font-weight:600;color:rgba(255,255,255,.4)}
+
+.emoji-wrap{
+  width:80px;height:80px;border-radius:50%;
+  background:rgba(255,107,53,.1);border:1px solid rgba(255,107,53,.2);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 24px;font-size:38px;
+  animation:emojiPop .7s .2s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes emojiPop{from{opacity:0;transform:scale(.5) rotate(-20deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+
+.biz-name{font-family:'Sora',sans-serif;font-size:12px;font-weight:600;color:#ff6b35;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;animation:fadeUp .5s .35s ease both}
+h1{font-family:'Sora',sans-serif;font-size:24px;font-weight:800;line-height:1.25;margin-bottom:10px;letter-spacing:-.5px;animation:fadeUp .5s .4s ease both}
+.desc{font-size:14px;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:32px;animation:fadeUp .5s .45s ease both}
+
+/* RATING SELECTOR */
+.rating-row{display:flex;gap:8px;justify-content:center;margin-bottom:28px;animation:fadeUp .5s .5s ease both}
+.rating-btn{
+  width:44px;height:44px;border-radius:12px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  color:#fff;font-size:16px;font-weight:700;font-family:'Sora',sans-serif;
+  cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;
+}
+.rating-btn:hover{background:rgba(255,107,53,.15);border-color:rgba(255,107,53,.4);transform:translateY(-2px)}
+.rating-btn.selected{background:rgba(255,107,53,.2);border-color:#ff6b35;color:#ff6b35;box-shadow:0 0 16px rgba(255,107,53,.3)}
+
+.form-section{animation:fadeUp .5s .55s ease both;text-align:left}
+.fg{display:flex;flex-direction:column;gap:9px;margin-bottom:18px}
+.fg label{font-size:11px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1.5px;text-transform:uppercase}
+.fg input,.fg textarea,.fg select{
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;padding:13px 16px;color:#fff;
+  font-size:14px;font-family:'DM Sans',sans-serif;
+  transition:all .3s;outline:none;width:100%;
+}
+.fg input:focus,.fg textarea:focus,.fg select:focus{
+  border-color:rgba(255,107,53,.5);
+  background:rgba(255,107,53,.04);
+  box-shadow:0 0 0 3px rgba(255,107,53,.1);
+}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(255,255,255,.15)}
+.fg textarea{resize:vertical;min-height:110px}
+
+.submit-btn{
+  width:100%;padding:16px;
+  background:linear-gradient(135deg,#ff6b35,#e04e1a);
+  color:#fff;border:none;border-radius:14px;
+  font-family:'Sora',sans-serif;font-size:15px;font-weight:700;
+  cursor:pointer;transition:all .3s;
+  box-shadow:0 4px 24px rgba(255,107,53,.35);
+  margin-top:8px;position:relative;overflow:hidden;
+}
+.submit-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transition:left .5s}
+.submit-btn:hover::before{left:100%}
+.submit-btn:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(255,107,53,.5)}
+
+.privacy{margin-top:16px;font-size:11px;color:rgba(255,255,255,.2);text-align:center;line-height:1.6}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="bg-glow g1"></div>
+<div class="bg-glow g2"></div>
+
+<div class="card">
+  <!-- FORM STATE -->
+  <div id="formState">
+    <div class="logo-row">
+      <div class="lbox">T</div>
+      <span class="lname">Think AI Solutions</span>
+    </div>
+
+    <div class="emoji-wrap">😔</div>
+    <div class="biz-name" id="bizName">ABC Dental Clinic</div>
+    <h1>We're sorry to hear that.</h1>
+    <p class="desc">Your feedback helps us improve. Please tell us what went wrong — we'll make it right.</p>
+
+    <div class="rating-row">
+      <button class="rating-btn selected" onclick="selectRating(this,1)">1</button>
+      <button class="rating-btn" onclick="selectRating(this,2)">2</button>
+      <button class="rating-btn" onclick="selectRating(this,3)">3</button>
+    </div>
+
+    <div class="form-section">
+      <div class="fg">
+        <label>Your Name (optional)</label>
+        <input type="text" id="custName" placeholder="Ravi Kumar">
+      </div>
+      <div class="fg">
+        <label>What went wrong?</label>
+        <textarea id="feedback" placeholder="Please describe your experience so we can improve..." required></textarea>
+      </div>
+      <div class="fg">
+        <label>How can we make it right?</label>
+        <input type="text" id="resolution" placeholder="e.g. Call me back, Refund, etc.">
+      </div>
+      <button class="submit-btn" onclick="submitFeedback()">Submit Feedback</button>
+      <p class="privacy">🔒 This feedback goes directly to the business owner only. It will NOT be posted publicly.</p>
+    </div>
+  </div>
+
+  <!-- SUCCESS STATE -->
+  <div class="success" id="successState">
+    <div class="tick">✅</div>
+    <h2>Feedback received!</h2>
+    <p>Thank you for taking the time to share your experience. The team has been notified and will reach out to you shortly to make things right.</p>
+  </div>
+</div>
+
+<script>
+let selectedRating = 1;
+const params = new URLSearchParams(location.search);
+const biz = params.get('biz') || 'Our Business';
+const waNumber = params.get('wa') || '919391714623';
+document.getElementById('bizName').textContent = biz;
+
+function selectRating(btn, val) {
+  selectedRating = val;
+  document.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function submitFeedback() {
+  const feedback = document.getElementById('feedback').value.trim();
+  if (!feedback) {
+    document.getElementById('feedback').focus();
+    document.getElementById('feedback').style.borderColor = 'rgba(255,107,53,.8)';
+    return;
+  }
+  const name = document.getElementById('custName').value.trim() || 'Anonymous';
+  const resolution = document.getElementById('resolution').value.trim() || 'Not specified';
+
+  // Send alert to business via WhatsApp
+  const msg =
+    `⚠️ *Negative Feedback Alert*\n\n` +
+    `*Business:* ${biz}\n` +
+    `*Customer:* ${name}\n` +
+    `*Rating:* ${'⭐'.repeat(selectedRating)} (${selectedRating}/5)\n` +
+    `*Feedback:* ${feedback}\n` +
+    `*Wants:* ${resolution}\n\n` +
+    `Please follow up with this customer ASAP.`;
+
+  // Open WhatsApp to notify business
+  window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`, '_blank');
+
+  // Show success
+  document.getElementById('formState').style.display = 'none';
+  document.getElementById('successState').style.display = 'block';
+}
+</script>
+</body>
+</html>br
