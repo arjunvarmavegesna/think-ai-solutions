@@ -1,11 +1,193 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Positive Review</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You — Leave a Review</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:#04060f;
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;
+  overflow:hidden;
+  position:relative;
+}
+
+/* BG PARTICLES */
+.bg-glow{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.g1{width:500px;height:500px;background:rgba(79,142,247,.08);top:-100px;left:-100px;animation:gf 7s ease-in-out infinite}
+.g2{width:400px;height:400px;background:rgba(31,207,138,.06);bottom:-80px;right:-80px;animation:gf 9s ease-in-out infinite reverse}
+@keyframes gf{0%,100%{transform:scale(1) translate(0,0)}50%{transform:scale(1.1) translate(20px,-20px)}}
+
+/* STARS FLOAT */
+.stars-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.star{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;animation:twinkle var(--d) ease-in-out infinite var(--delay)}
+@keyframes twinkle{0%,100%{opacity:.1;transform:scale(1)}50%{opacity:.6;transform:scale(1.5)}}
+
+.card{
+  background:rgba(8,13,30,.9);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:28px;
+  padding:56px 48px;
+  max-width:440px;
+  width:90%;
+  text-align:center;
+  position:relative;
+  z-index:1;
+  animation:cardIn .7s cubic-bezier(.16,1,.3,1) both;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:28px 28px 0 0;
+  background:linear-gradient(90deg,transparent,#4f8ef7,#1fcf8a,transparent);
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(40px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+.logo-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:32px}
+.lbox{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#4f8ef7,#a78bfa);display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:#fff;box-shadow:0 0 20px rgba(79,142,247,.4)}
+.lname{font-family:'Sora',sans-serif;font-size:13px;font-weight:600;color:rgba(255,255,255,.5)}
+
+.emoji-wrap{
+  width:88px;height:88px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(31,207,138,.15),rgba(79,142,247,.1));
+  border:1px solid rgba(31,207,138,.25);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 24px;
+  font-size:42px;
+  animation:emojiPop .8s .3s cubic-bezier(.34,1.56,.64,1) both;
+  position:relative;
+}
+.emoji-wrap::after{
+  content:'';position:absolute;inset:-8px;border-radius:50%;
+  border:1px solid rgba(31,207,138,.15);
+  animation:ring 2s ease infinite;
+}
+@keyframes ring{0%{transform:scale(1);opacity:.5}100%{transform:scale(1.3);opacity:0}}
+@keyframes emojiPop{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+
+.biz-name{
+  font-family:'Sora',sans-serif;font-size:13px;font-weight:600;
+  color:#1fcf8a;letter-spacing:1px;text-transform:uppercase;
+  margin-bottom:10px;animation:fadeUp .6s .4s ease both;
+}
+h1{
+  font-family:'Sora',sans-serif;font-size:26px;font-weight:800;
+  line-height:1.2;margin-bottom:12px;letter-spacing:-.5px;
+  animation:fadeUp .6s .45s ease both;
+}
+.desc{
+  font-size:15px;color:rgba(255,255,255,.5);
+  line-height:1.7;margin-bottom:32px;
+  animation:fadeUp .6s .5s ease both;
+}
+
+.stars-row{
+  display:flex;justify-content:center;gap:6px;margin-bottom:32px;
+  animation:fadeUp .6s .55s ease both;
+}
+.star-icon{
+  font-size:28px;animation:starPop .4s ease both;
+  cursor:default;
+}
+.star-icon:nth-child(1){animation-delay:.6s}
+.star-icon:nth-child(2){animation-delay:.65s}
+.star-icon:nth-child(3){animation-delay:.7s}
+.star-icon:nth-child(4){animation-delay:.75s}
+.star-icon:nth-child(5){animation-delay:.8s}
+@keyframes starPop{from{opacity:0;transform:scale(0) rotate(-30deg)}to{opacity:1;transform:scale(1) rotate(0deg)}}
+
+.review-btn{
+  display:block;width:100%;padding:18px;
+  background:linear-gradient(135deg,#4f8ef7,#2563eb);
+  color:#fff;border:none;border-radius:14px;
+  font-family:'Sora',sans-serif;font-size:16px;font-weight:700;
+  text-decoration:none;cursor:pointer;
+  box-shadow:0 4px 32px rgba(79,142,247,.45);
+  transition:all .3s;position:relative;overflow:hidden;
+  animation:fadeUp .6s .85s ease both;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.review-btn::before{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+  transition:left .5s;
+}
+.review-btn:hover::before{left:100%}
+.review-btn:hover{transform:translateY(-3px);box-shadow:0 10px 44px rgba(79,142,247,.6)}
+.review-btn:active{transform:translateY(0)}
+
+.google-g{
+  width:24px;height:24px;background:#fff;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;flex-shrink:0;
+}
+
+.note{
+  margin-top:20px;font-size:12px;color:rgba(255,255,255,.25);
+  animation:fadeUp .6s .95s ease both;
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+</style>
 </head>
 <body>
-  <h1>Positive Review</h1>
+
+<div class="bg-glow g1"></div>
+<div class="bg-glow g2"></div>
+
+<div class="stars-bg" id="starsBg"></div>
+
+<div class="card">
+  <div class="logo-row">
+    <div class="lbox">T</div>
+    <span class="lname">Think AI Solutions</span>
+  </div>
+
+  <div class="emoji-wrap">🙏</div>
+
+  <!-- Business name comes from URL param: ?biz=ABC+Dental -->
+  <div class="biz-name" id="bizName">ABC Dental Clinic</div>
+
+  <h1>Thank you for visiting us!</h1>
+  <p class="desc">We're so glad you had a great experience. Your Google review helps other people find us — it takes just 30 seconds.</p>
+
+  <div class="stars-row">
+    <span class="star-icon">⭐</span>
+    <span class="star-icon">⭐</span>
+    <span class="star-icon">⭐</span>
+    <span class="star-icon">⭐</span>
+    <span class="star-icon">⭐</span>
+  </div>
+
+  <!-- Google review link comes from URL param: ?link=https://g.page/... -->
+  <a class="review-btn" id="reviewBtn" href="#" target="_blank">
+    <div class="google-g"><span style="background:linear-gradient(135deg,#4285F4,#EA4335,#FBBC05,#34A853);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">G</span></div>
+    Leave a Google Review
+  </a>
+
+  <p class="note">Opens Google in a new tab · Takes 30 seconds</p>
+</div>
+
+<script>
+// Generate star background
+const bg = document.getElementById('starsBg');
+for(let i=0;i<60;i++){
+  const s=document.createElement('div');
+  s.className='star';
+  s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:${Math.random()*3}s;opacity:${.1+Math.random()*.4}`;
+  bg.appendChild(s);
+}
+
+// Read URL params
+const params=new URLSearchParams(location.search);
+const biz=params.get('biz')||'Our Business';
+const link=params.get('link')||'https://search.google.com/local/reviews';
+document.getElementById('bizName').textContent=biz;
+document.getElementById('reviewBtn').href=link;
+</script>
 </body>
 </html>
